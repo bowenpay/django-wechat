@@ -89,3 +89,5 @@ def get_wechat():
                 set_jsapi_ticket=set_jsapi_ticket
             )
     return Wechat
+
+Wechat = get_wechat()
