@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import os
 from setuptools import setup
 
@@ -7,12 +8,12 @@ README = open(os.path.join(os.path.dirname(__file__), 'README.md')).read()
 os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
-    name='django-wechat',
+    name='django-wechat-sdk',
     version='0.1',
     packages=['djwechat'],
     include_package_data=True,
     license='BSD License',
-    description='django-wechat是一个微信公众号 django 开发库',
+    description='django-wechat 是一个微信公众号 django 开发库',
     long_description=README,
     url='http://github.com/bowenpay/django-wechat/',
     author='Jingping Yi',
