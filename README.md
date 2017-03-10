@@ -10,8 +10,7 @@
 Quick start
 -----------
 
-1. 添加 "djwechat" 到 INSTALLED_APPS中
-
+1 添加 "djwechat" 到 INSTALLED_APPS中
 ```
     INSTALLED_APPS = (
         ...
@@ -19,9 +18,9 @@ Quick start
     )
 ```
 
-2. 运行 `python manage.py migrate`，以创建 django-wechat models.
+2 运行 `python manage.py migrate`，以创建 django-wechat models.
 
-3. 在admin后台，添加对应微信号的账号认证信息 和 JsApiList
+3 在admin后台，添加对应微信号的账号认证信息 和 JsApiList
 
 1）账号认证信息的值为：
 
@@ -40,7 +39,7 @@ Quick start
     scanQRCode getLocation getNetworkType onMenuShareTimeline onMenuShareAppMessage onMenuShareQQ onMenuShareWeibo chooseWXPay
 ```
 
-4. 在 `django` 中使用
+4 在 `django` 中使用
 
 ```
     from djwechat.util import get_wechat
