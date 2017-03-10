@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# fabsvc documentation build configuration file, created by
+# djwechat documentation build configuration file, created by
 # sphinx-quickstart on Wed Oct 23 16:34:24 2013.
 #
 # This file is execfile()d with the current directory set to its containing dir.
@@ -40,7 +40,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'fabsvc'
+project = u'djwechat'
 copyright = u'2013, Jingping Yi'
 
 # The version info for the project you're documenting, acts as replacement for
@@ -164,7 +164,7 @@ html_static_path = ['_static']
 #html_file_suffix = None
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'fabsvcdoc'
+htmlhelp_basename = 'djwechatdoc'
 
 
 # -- Options for LaTeX output --------------------------------------------------
@@ -183,7 +183,7 @@ latex_elements = {
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
-  ('index', 'fabsvc.tex', u'fabsvc Documentation',
+  ('index', 'djwechat.tex', u'djwechat Documentation',
    u'Jingping Yi', 'manual'),
 ]
 
@@ -213,7 +213,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('index', 'fabsvc', u'fabsvc Documentation',
+    ('index', 'djwechat', u'djwechat Documentation',
      [u'Jingping Yi'], 1)
 ]
 
@@ -227,8 +227,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  ('index', 'fabsvc', u'fabsvc Documentation',
-   u'Jingping Yi', 'fabsvc', 'One line description of project.',
+  ('index', 'djwechat', u'djwechat Documentation',
+   u'Jingping Yi', 'djwechat', 'One line description of project.',
    'Miscellaneous'),
 ]
 

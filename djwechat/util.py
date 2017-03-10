@@ -5,42 +5,50 @@ from .models import Config
 import json
 
 
-def get_access_token():
-    try:
-        obj = Config.objects.get(kind=Config.KIND_TOKEN)
-        value = json.loads(obj.value)
-        return value.get("access_token"), value.get("access_token_expires_at")
-    except Config.DoesNotExist:
-        return None, None
+def get_access_token(appid):
+    def _wrapper():
+        try:
+            obj = Config.objects.get(appid=appid, kind=Config.KIND_TOKEN)
+            value = json.loads(obj.value)
+            return value.get("access_token"), value.get("access_token_expires_at")
+        except Config.DoesNotExist:
+            return None, None
+    return _wrapper
 
 
-def set_access_token(access_token, access_token_expires_at):
-    value = json.dumps({
-        "access_token": access_token,
-        "access_token_expires_at": access_token_expires_at
-    })
-    Config.objects.update_or_create(kind=Config.KIND_TOKEN, defaults={
-        "value": value
-    })
+def set_access_token(appid):
+    def _wrapper(access_token, access_token_expires_at):
+        value = json.dumps({
+            "access_token": access_token,
+            "access_token_expires_at": access_token_expires_at
+        })
+        Config.objects.update_or_create(appid=appid, kind=Config.KIND_TOKEN, defaults={
+            "value": value
+        })
+    return _wrapper
 
 
-def get_jsapi_ticket():
-    try:
-        obj = Config.objects.get(kind=Config.KIND_TICKET)
-        value = json.loads(obj.value)
-        return value.get("jsapi_ticket"), value.get("jsapi_ticket_expires_at")
-    except Config.DoesNotExist:
-        return None, None
+def get_jsapi_ticket(appid):
+    def _wrapper():
+        try:
+            obj = Config.objects.get(appid=appid, kind=Config.KIND_TICKET)
+            value = json.loads(obj.value)
+            return value.get("jsapi_ticket"), value.get("jsapi_ticket_expires_at")
+        except Config.DoesNotExist:
+            return None, None
+    return _wrapper
 
 
-def set_jsapi_ticket(jsapi_ticket, jsapi_ticket_expires_at):
-    value = json.dumps({
-        "jsapi_ticket": jsapi_ticket,
-        "jsapi_ticket_expires_at": jsapi_ticket_expires_at
-    })
-    Config.objects.update_or_create(kind=Config.KIND_TICKET, defaults={
-        "value": value
-    })
+def set_jsapi_ticket(appid):
+    def _wrapper(jsapi_ticket, jsapi_ticket_expires_at):
+        value = json.dumps({
+            "jsapi_ticket": jsapi_ticket,
+            "jsapi_ticket_expires_at": jsapi_ticket_expires_at
+        })
+        Config.objects.update_or_create(appid=appid, kind=Config.KIND_TICKET, defaults={
+            "value": value
+        })
+    return _wrapper
 
 
 def get_wxjs_config(url, wx_tool):
@@ -62,32 +70,31 @@ def get_wxjs_config(url, wx_tool):
     return config
 
 
-Wechat = None
+Wechat = {}
 
 
-def get_wechat():
+def get_wechat(appid):
     global Wechat
-    if not Wechat:
+    if not Wechat.get(appid):
         auth = None
         try:
-            obj = Config.objects.get(kind=Config.KIND_AUTH)
+            obj = Config.objects.get(appid=appid, kind=Config.KIND_AUTH)
             auth = json.loads(obj.value)
         except Config.DoesNotExist:
             pass
         else:
             # 实例化 wechat
-            Wechat = WechatBasic(
+            Wechat[appid] = WechatBasic(
                 token=auth.get("WEIXIN_TOKEN"),
                 appid=auth.get("WEIXIN_APP_ID"),
                 appsecret=auth.get("WEIXIN_APP_SECRET"),
                 partnerid=auth.get("WEIXIN_MCH_ID"),
                 partnerkey=auth.get("WEIXIN_PARTNER_KEY"),
                 notify_url=auth.get("WEIXIN_NOTIFY_URL"),
-                get_access_token=get_access_token,
-                set_access_token=set_access_token,
-                get_jsapi_ticket=get_jsapi_ticket,
-                set_jsapi_ticket=set_jsapi_ticket
+                get_access_token=get_access_token(appid),
+                set_access_token=set_access_token(appid),
+                get_jsapi_ticket=get_jsapi_ticket(appid),
+                set_jsapi_ticket=set_jsapi_ticket(appid)
             )
-    return Wechat
+    return Wechat[appid]
 
-Wechat = get_wechat()

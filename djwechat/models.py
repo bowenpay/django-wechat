@@ -13,6 +13,7 @@ class Config(models.Model):
         (KIND_TOKEN, 'token'),
         (KIND_TICKET, 'ticket')
     )
+    appid = models.CharField(max_length=64, default='', verbose_name='AppId')
     kind = models.IntegerField(choices=KIND_CHOICES, verbose_name='类型')
     value = models.TextField(default='', verbose_name='值')
 

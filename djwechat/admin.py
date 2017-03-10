@@ -3,6 +3,6 @@ from djwechat.models import Config
 
 
 class ConfigAdmin(admin.ModelAdmin):
-    list_display = ('kind', 'value')
+    list_display = ('appid', 'kind', 'value')
 
 admin.site.register(Config, ConfigAdmin)
