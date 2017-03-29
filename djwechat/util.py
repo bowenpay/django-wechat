@@ -81,7 +81,7 @@ def get_wechat(appid):
             obj = Config.objects.get(appid=appid, kind=Config.KIND_AUTH)
             auth = json.loads(obj.value)
         except Config.DoesNotExist:
-            pass
+            Wechat[appid] = None
         else:
             # 实例化 wechat
             Wechat[appid] = WechatBasic(
